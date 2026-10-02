@@ -66,7 +66,10 @@ export function FormBuilder() {
 
     if (data?.source === "palette") {
       const overIndex = form.fields.findIndex((f) => f.id === over.id);
-      addField(data.type as FieldType, overIndex === -1 ? undefined : overIndex);
+      addField(
+        data.type as FieldType,
+        overIndex === -1 ? undefined : overIndex
+      );
       return;
     }
 

@@ -19,7 +19,7 @@ export interface FormField {
   id: string;
   type: FieldType;
   label: string;
-  name: string;          // key di data hasil submit
+  name: string; // key di data hasil submit
   placeholder?: string;
   required: boolean;
   options?: FieldOption[]; // hanya dipakai type "select"
@@ -36,12 +36,12 @@ export const FIELD_META: Record<
   FieldType,
   { label: string; defaultLabel: string }
 > = {
-  text:     { label: "Teks singkat", defaultLabel: "Teks" },
+  text: { label: "Teks singkat", defaultLabel: "Teks" },
   textarea: { label: "Teks panjang", defaultLabel: "Deskripsi" },
-  number:   { label: "Angka",        defaultLabel: "Angka" },
-  email:    { label: "Email",        defaultLabel: "Email" },
-  select:   { label: "Dropdown",     defaultLabel: "Pilihan" },
-  checkbox: { label: "Checkbox",     defaultLabel: "Setuju" },
+  number: { label: "Angka", defaultLabel: "Angka" },
+  email: { label: "Email", defaultLabel: "Email" },
+  select: { label: "Dropdown", defaultLabel: "Pilihan" },
+  checkbox: { label: "Checkbox", defaultLabel: "Setuju" },
 };
 
 export function createField(type: FieldType): FormField {

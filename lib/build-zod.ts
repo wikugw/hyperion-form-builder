@@ -26,7 +26,10 @@ export function buildZodSchema(fields: FormField[]) {
         // nilai input number tetap string di form, divalidasi manual
         const base = z
           .string()
-          .refine((v) => v === "" || !Number.isNaN(Number(v)), "Harus berupa angka");
+          .refine(
+            (v) => v === "" || !Number.isNaN(Number(v)),
+            "Harus berupa angka"
+          );
         rule = f.required ? base.refine((v) => v !== "", REQUIRED_MSG) : base;
         break;
       }
