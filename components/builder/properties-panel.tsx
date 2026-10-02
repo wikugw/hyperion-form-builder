@@ -6,6 +6,39 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormStore } from "@/lib/form-store";
+import { useState } from "react";
+import { validateFieldName, type FormField } from "@/lib/form-schema";
+
+function NameField({ field }: { field: FormField }) {
+  const fields = useFormStore((s) => s.form.fields);
+  const updateField = useFormStore((s) => s.updateField);
+  const [draft, setDraft] = useState(field.name);
+
+  const error = validateFieldName(draft, fields, field.id);
+
+  function handleChange(value: string) {
+    setDraft(value);
+    if (!validateFieldName(value, fields, field.id)) {
+      updateField(field.id, { name: value });
+    }
+  }
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="name">Name (key data)</Label>
+      <Input
+        id="name"
+        value={draft}
+        aria-invalid={!!error}
+        onChange={(e) => handleChange(e.target.value)}
+        onBlur={() => {
+          if (error) setDraft(field.name); // kembalikan ke nilai valid terakhir
+        }}
+      />
+      {error && <p className="text-sm text-destructive">{error}</p>}
+    </div>
+  );
+}
 
 export function PropertiesPanel() {
   const field = useFormStore((s) =>
@@ -36,14 +69,7 @@ export function PropertiesPanel() {
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="name">Name (key data)</Label>
-        <Input
-          id="name"
-          value={field.name}
-          onChange={(e) => updateField(field.id, { name: e.target.value })}
-        />
-      </div>
+      <NameField key={field.id} field={field} />
 
       {field.type !== "checkbox" && field.type !== "select" && (
         <div className="space-y-2">

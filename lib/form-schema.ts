@@ -74,3 +74,19 @@ export function createEmptyForm(): FormSchema {
     fields: [],
   };
 }
+
+const NAME_PATTERN = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
+
+export function validateFieldName(
+  name: string,
+  fields: FormField[],
+  currentId: string
+): string | null {
+  if (!name.trim()) return "Name tidak boleh kosong";
+  if (!NAME_PATTERN.test(name)) {
+    return "Hanya huruf, angka, dan underscore; tidak boleh diawali angka";
+  }
+  const duplicate = fields.some((f) => f.id !== currentId && f.name === name);
+  if (duplicate) return "Name sudah dipakai field lain";
+  return null;
+}
