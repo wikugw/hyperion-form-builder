@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { FIELD_META, type FormField } from "@/lib/form-schema";
 import { useFormStore } from "@/lib/form-store";
+import { FieldInput } from "@/components/form/field-input";
 
 export function SortableField({ field }: { field: FormField }) {
   const selected = useFormStore((s) => s.selectedId === field.id);
@@ -80,7 +81,7 @@ export function SortableField({ field }: { field: FormField }) {
       </div>
 
       <div className="pointer-events-none">
-        <Input disabled placeholder={field.placeholder} />
+        <FieldInput field={field} id={`preview-${field.id}`} disabled />
       </div>
     </div>
   );
