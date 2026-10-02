@@ -22,6 +22,7 @@ import { useFormStore } from "@/lib/form-store";
 import { Canvas } from "./canvas";
 import { FieldPalette } from "./field-palette";
 import { PropertiesPanel } from "./properties-panel";
+import { SaveButton } from "./save-button";
 
 function exportJson() {
   const { form } = useFormStore.getState();
@@ -90,6 +91,7 @@ export function FormBuilder() {
         <Button variant="outline" size="sm" onClick={exportJson}>
           <Download className="mr-1 size-4" /> Export JSON
         </Button>
+        <SaveButton />
       </header>
 
       <TabsContent value="builder" className="min-h-0 flex-1">
